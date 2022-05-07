@@ -10,7 +10,7 @@ public class AirportInformationSearcher implements InformationSearcher {
     private ArrayList<CargoEntity> cargoEntities;
 
     @Override
-    public String getFlightInformationById(int flightNumber, LocalDate flightDate) {
+    public FlightInformation getFlightInformationById(int flightNumber, LocalDate flightDate) {
         // Searching flight by number
         for (FlightEntity flight : flightEntities) {
             if (flight.getFlightNumber() == flightNumber && flight.getDepartureDate().equals(flightDate)) {
@@ -20,7 +20,7 @@ public class AirportInformationSearcher implements InformationSearcher {
                 CargoEntity cargoEntity = cargoEntities.get(flightEntities.indexOf(flight));
                 // Summing baggage weight
                 for (Cargo baggage : cargoEntity.getBaggage()) {
-                     baggageWeight += baggage.getWeight();
+                    baggageWeight += baggage.getWeight();
                 }
                 // Summing cargo weight
                 for (Cargo cargo : cargoEntity.getCargos()) {
@@ -28,20 +28,45 @@ public class AirportInformationSearcher implements InformationSearcher {
                 }
                 // Summing total weight
                 totalWeight = cargoWeight + baggageWeight;
-                return String.format("""
-                        Flight with id: %s and flight date: %s has next information
-                        Cargo weight: %s
-                        Baggage weight: %s
-                        Total weight: %s""",
-                        flightNumber, flightDate, cargoWeight, baggageWeight, totalWeight);
+                return new FlightInformation(flightNumber, flightDate, cargoWeight, baggageWeight, totalWeight);
             }
         }
-        return String.format("Flight with id: %s and flight date: %s - cannot be found", flightNumber, flightDate);
+        return new FlightInformation();
     }
 
     @Override
     public String getAirportInformation(String IATACode, LocalDate date) {
-        return null;
+        int departuresNumber = 0;
+        int arrivalsNumber = 0;
+        long departureBaggagePieces = 0;
+        long arrivalBaggagePieces = 0;
+
+        for (FlightEntity flight : flightEntities) {
+            if (flight.getDepartureIATACode().equals(IATACode)) {
+                departuresNumber++;
+                CargoEntity cargoEntity = cargoEntities.get(flightEntities.indexOf(flight));
+                departureBaggagePieces += cargoEntity.getAllBaggagePieces();
+            }
+            if (flight.getArrivalIATACode().equals(IATACode)) {
+                arrivalsNumber++;
+                CargoEntity cargoEntity = cargoEntities.get(flightEntities.indexOf(flight));
+                arrivalBaggagePieces += cargoEntity.getAllBaggagePieces();
+            }
+        }
+        if (departuresNumber != 0 || arrivalsNumber != 0) {
+            return String.format("""
+                    Information about Airport with IATA code: %s and with date: %s
+                    Departing flights: %s
+                    Arriving flights: %s
+                    Total number of (pieces) baggage arriving from this airport: %s
+                    Total number of (pieces) baggage departing from this airport: %s
+                    """,
+                    IATACode, date, departuresNumber, arrivalsNumber, arrivalBaggagePieces, departureBaggagePieces);
+        }
+
+        return String.format("""
+                        Information about Airport with IATA code: %s and with this date: %s - cannot be found""",
+                IATACode, date);
     }
 
     public AirportInformationSearcher(String flightFilePath, String cargoFilePath) {
@@ -53,9 +78,5 @@ public class AirportInformationSearcher implements InformationSearcher {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
-
-        flightEntities.forEach(flightEntity -> {
-            System.out.println(flightEntity.getFlightNumber());
-        });
     }
 }
