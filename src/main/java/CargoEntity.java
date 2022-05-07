@@ -11,10 +11,6 @@ public class CargoEntity {
         this.cargos = cargos;
     }
 
-//    @Override
-//    public String toString() {
-//        return "[flightId=" + flightId + ", baggage=" + List.toString(baggage) + ", cargos=" + Arrays.toString(cargos) + "]";
-//    }
     public long getFlightId() {
         return flightId;
     }
@@ -25,5 +21,9 @@ public class CargoEntity {
 
     public List<Cargo> getCargos() {
         return cargos;
+    }
+
+    public long getAllBaggagePieces() {
+        return baggage.stream().mapToLong(Cargo::getPieces).sum();
     }
 }
