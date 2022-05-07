@@ -1,6 +1,6 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public interface InformationSearcher {
-    String getFlightInformationById(int flightNumber, Date flightDate);
-    String getAirportInformation(String IATACode, Date date);
+    String getFlightInformationById(int flightNumber, LocalDate flightDate);
+    String getAirportInformation(String IATACode, LocalDate date);
 }

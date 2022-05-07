@@ -20,7 +20,10 @@ public class Cargo {
         return id;
     }
 
-    public long getWeight() {
+    public double getWeight() {
+        if (weightUnit.equals("lb")) {
+            return WeightUtil.lbTokg(weight);
+        }
         return weight;
     }
 

@@ -19,11 +19,11 @@ public class CargoEntity {
         return flightId;
     }
 
-//    public Baggage[] getBaggage() {
-//        return baggage;
-//    }
-//
-//    public Cargo[] getCargos() {
-//        return cargos;
-//    }
+    public List<Cargo> getBaggage() {
+        return baggage;
+    }
+
+    public List<Cargo> getCargos() {
+        return cargos;
+    }
 }
