@@ -16,8 +16,13 @@ Libraries used:
 
 ## Usage
 
-```Java
+All source files are packed in 
+[jar](https://github.com/ShockJake/InformationSearcherApp/blob/master/out/artifacts/FlightInformator_jar/InformationSearcher.jar "InformationSearcher.jar") 
+file and in case of using it you need to add jar file to your project.
 
+#### Example of use
+
+```Java
 class App {
     public static void main(String[] args) {
         InformationSearcher searcher =
