@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlightInformationTest {
-    private final InformationSearcher searcher = new AirportInformationSearcher("flights.json",
+    private final InformationSearcher searcher = new InformationSearcherApplication("flights.json",
             "Cargos.json");
 
     @Test
