@@ -1,13 +1,15 @@
 import java.time.LocalDate;
-import java.util.Date;
 
+// Class that represents Flight Entity
 public class FlightEntity {
+    // Flight data
     private long id;
     private long flightNumber;
     private String departureIATACode;
     private String arrivalIATACode;
     private LocalDate departureDate;
 
+    // Constructor with arguments
     FlightEntity(long id, long flightNumber, String departureIATACode, String arrivalIATACode, LocalDate departureDate) {
         this.id = id;
         this.flightNumber = flightNumber;

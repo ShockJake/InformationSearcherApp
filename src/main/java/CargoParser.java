@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CargoParser {
 
+    // Method to parse Cargo objects
     private static Cargo parseCargo(JSONObject cargoObj) {
         return new Cargo(
                 (long) cargoObj.get("id"),
@@ -19,16 +20,17 @@ public class CargoParser {
         );
     }
 
+    // Method to parse List of Cargo objects
     private static List<Cargo> parseCargos(JSONArray jsonCargo) {
         ArrayList<Cargo> cargoArray = new ArrayList<>();
         jsonCargo.forEach(c -> {
             JSONObject cargoObj = (JSONObject) c;
             cargoArray.add(parseCargo(cargoObj));
         });
-
         return cargoArray;
     }
 
+    // Parse Cargo Entity object
     private static CargoEntity parseCargoEntity(JSONObject cargoObj) {
         return new CargoEntity(
                 (long) cargoObj.get("flightId"),
@@ -37,12 +39,16 @@ public class CargoParser {
         );
     }
 
-    public static void parseCargoEntities(String cargoEntitiesFilePath, ArrayList<CargoEntity> cargoEntities) throws IOException, ParseException {
+    // Parse Array of Cargo objects
+    public static void parseCargoEntities(String cargoEntitiesFilePath, ArrayList<CargoEntity> cargoEntities)
+            throws IOException, ParseException {
+
         JSONArray cargoEntityArray = (JSONArray) new JSONParser().parse(new FileReader(cargoEntitiesFilePath));
         cargoEntityArray.forEach(c -> {
             JSONObject cargoEntityObj = (JSONObject) c;
             CargoEntity cargoEntity = parseCargoEntity(cargoEntityObj);
             cargoEntities.add(cargoEntity);
+
         });
     }
 }

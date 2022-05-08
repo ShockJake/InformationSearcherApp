@@ -7,7 +7,10 @@ public class FlightInformation {
     private double baggageWeight = 0;
     private double totalWeight = 0;
 
-    FlightInformation(){}
+    // Default constructor to build an empty Flight Information class
+    FlightInformation() {}
+
+    // Constructor with arguments
     FlightInformation(long flightId, LocalDate date, double cargoWeight, double baggageWeight, double totalWeight) {
         this.flightId = flightId;
         this.date = date;
@@ -18,8 +21,18 @@ public class FlightInformation {
 
     @Override
     public String toString() {
+        return "FlightInformation{" +
+                "flightId=" + flightId +
+                ", date=" + date +
+                ", cargoWeight=" + cargoWeight +
+                ", baggageWeight=" + baggageWeight +
+                ", totalWeight=" + totalWeight +
+                '}';
+    }
+
+    public String getInformation() {
         if (date == null) {
-            return "Flight with this id and date cannot be found";
+            return "Flight information with this id or date cannot be found";
         }
         return String.format("""
                         Flight with id: %s and flight date: %s has next information:
