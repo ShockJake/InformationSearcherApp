@@ -78,6 +78,7 @@ public class InformationSearcherApplication implements InformationSearcher {
             CargoParser.parseCargoEntities(cargoFilePath, cargoEntities);
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
 }
