@@ -11,11 +11,11 @@ public class AirportInformation {
     private long departureBaggagePieces = 0;
 
     // Default constructor to build an empty Airport Information class
-    AirportInformation() {
+    public AirportInformation() {
     }
 
     // Constructor with arguments
-    AirportInformation(String IATACode, LocalDate date, int departureNumber,
+    public AirportInformation(String IATACode, LocalDate date, int departureNumber,
                        int arrivalsNumber, long arrivalBaggagePieces, long departureBaggagePieces) {
         this.IATACode = IATACode;
         this.date = date;
@@ -44,7 +44,7 @@ public class AirportInformation {
         return String.format("""
                 Airport with this IATACode: %s and with this date: %s has next information:
                 \tDeparture flights: %s
-                \tArrivals flights: %s
+                \tArrival flights: %s
                 \tArrival Baggage(Pieces): %s
                 \tDeparture Baggage(Pieces): %s
                 """, IATACode, date, departureFlights, arrivalFlights, arrivalBaggagePieces, departureBaggagePieces);

@@ -1,18 +1,18 @@
 import java.time.LocalDate;
 
 public class FlightInformation {
-    private long flightId = 0;
+    private long flightNumber = 0;
     private LocalDate date = null;
     private double cargoWeight = 0;
     private double baggageWeight = 0;
     private double totalWeight = 0;
 
     // Default constructor to build an empty Flight Information class
-    FlightInformation() {}
+    public FlightInformation() {}
 
     // Constructor with arguments
-    FlightInformation(long flightId, LocalDate date, double cargoWeight, double baggageWeight, double totalWeight) {
-        this.flightId = flightId;
+    public FlightInformation(long flightNumber, LocalDate date, double cargoWeight, double baggageWeight, double totalWeight) {
+        this.flightNumber = flightNumber;
         this.date = date;
         this.cargoWeight = cargoWeight;
         this.baggageWeight = baggageWeight;
@@ -22,7 +22,7 @@ public class FlightInformation {
     @Override
     public String toString() {
         return "FlightInformation{" +
-                "flightId=" + flightId +
+                "flightNumber=" + flightNumber +
                 ", date=" + date +
                 ", cargoWeight=" + cargoWeight +
                 ", baggageWeight=" + baggageWeight +
@@ -35,15 +35,15 @@ public class FlightInformation {
             return "Flight information with this id or date cannot be found";
         }
         return String.format("""
-                        Flight with id: %s and flight date: %s has next information:
+                        Flight with number: %s and flight date: %s has next information:
                         \tCargo weight: %s
                         \tBaggage weight: %s
                         \tTotal weight: %s""",
-                flightId, date, cargoWeight, baggageWeight, totalWeight);
+                flightNumber, date, cargoWeight, baggageWeight, totalWeight);
     }
 
-    public long getFlightId() {
-        return flightId;
+    public long getFlightNumber() {
+        return flightNumber;
     }
 
     public LocalDate getDate() {
@@ -64,14 +64,13 @@ public class FlightInformation {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof FlightInformation)) {
+        if (!(obj instanceof FlightInformation flightInformation)) {
             return false;
         }
-        FlightInformation flightInformation = (FlightInformation) obj;
         if (flightInformation.date == null) {
             return false;
         }
-        return this.flightId == flightInformation.flightId &&
+        return this.flightNumber == flightInformation.flightNumber &&
                 this.date.equals(flightInformation.date) &&
                 this.cargoWeight == flightInformation.cargoWeight &&
                 this.baggageWeight == flightInformation.baggageWeight &&
