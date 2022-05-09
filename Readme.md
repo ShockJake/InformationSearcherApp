@@ -39,6 +39,15 @@ class App {
 }
 ```
 
+#### How to use in console:
+
+> java -cp InformationSearcher.jar Main **flightsFilePath** **cargoFilePath**
+
+Examples of use:
+
+![Example 1](./png/Example1.png 'First Example of use')
+![Example 2](./png/Example2.png 'Second Example of use')
+
 ### [Get more information about classes](https://github.com/ShockJake/InformationSearcherApp/tree/master/src/main/java "Classes")
 
 

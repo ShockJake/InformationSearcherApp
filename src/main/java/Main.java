@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
 
     private static void printUsage() {
-        System.out.println("Usage:\njava -jar InformationSearcher.jar <flightsFileName> <cargoFileName>");
+        System.out.println("Usage:\njava -cp InformationSearcher.jar Main <flightsFileName> <cargoFileName>");
     }
 
     public static void main(String[] args) {
