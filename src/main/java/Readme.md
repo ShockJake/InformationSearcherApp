@@ -253,6 +253,9 @@ Parameters:
 
 ### Public methods
 
+getFlightInformationById()
+-
+
 Method for getting flight information (Cargo Weight for requested Flight, 
 Baggage Weight for requested Flight, Total Weight for requested Flight)
 
@@ -262,6 +265,13 @@ Parameters:
 
 - flightNumber - number of flight that we want to get information about
 - flight date - date in which flight was
+
+Returns:
+
+> FlightInformation class
+
+getAirportInformation()
+-
 
 Method for getting Airport information (Number of flights departing from this airport,
 Number of flights arriving to this airport, Total number (pieces) of baggage arriving to this airport,
@@ -273,6 +283,10 @@ Parameters:
 
 - IATACode - code for a specific Airport
 - date - specific date in which we want to get information
+
+Returns:
+
+> AirportInformation class
 
 ---
 
