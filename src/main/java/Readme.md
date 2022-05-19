@@ -9,20 +9,20 @@ Interfaces:
 List of classes:
 -
 
-- FlightInformation
-- AirportInformation
-- FlightEntity
-- FlightParser
-- Cargo
-- CargoEntity
-- CargoParser
+- information.FlightInformation
+- information.AirportInformation
+- flight.FlightEntity
+- flight.FlightParser
+- cargo.Cargo
+- cargo.CargoEntity
+- cargo.CargoParser
 - InformationSearcherApplication
-- WeightUtil
-- DateUtil
+- utils.WeightUtil
+- utils.DateUtil
 
 ---
 
-## FlightInformation class
+## information.FlightInformation class
 
 It is a data class that contains **requested** data about flight (returned from `.getFlightInformationById()` function):
 
@@ -30,17 +30,17 @@ Contains next data:
  
 - Flight Number
 - Date of flight
-- Cargo weight of flight
+- cargo.Cargo weight of flight
 - Baggage weight of flight
 - Total weight of flight
 
 ### Constructors
 
     // Default constructor to build an empty Flight Information class
-    FlightInformation() {}
+    information.FlightInformation() {}
 
     // Constructor with arguments
-    FlightInformation(long flightNumber, LocalDate date, 
+    information.FlightInformation(long flightNumber, LocalDate date, 
         double cargoWeight, double baggageWeight, double totalWeight)
 
 Parameters:
@@ -71,7 +71,7 @@ Parameters:
 
 ---
 
-## AirportInformation class
+## information.AirportInformation class
 
 It is a data class that contains **requested** data for Airport (returned from `.getAirportInformationByIATACode()` method).
 
@@ -87,10 +87,10 @@ Contains next data:
 ### Constructors
 
     // Default constructor to build an empty Airport Information class
-    AirportInformation();
+    information.AirportInformation();
 
     // Constructor with arguments
-    AirportInformation(String IATACode, LocalDate date, int departureNumber,
+    information.AirportInformation(String IATACode, LocalDate date, int departureNumber,
         int arrivalsNumber, long arrivalBaggagePieces, long departureBaggagePieces);
 
 Parameters:
@@ -123,7 +123,7 @@ Parameters:
 
 ---
 
-## FlightEntity class
+## flight.FlightEntity class
 
 Class that represents Flight Entity. Contain next data:
 
@@ -135,32 +135,32 @@ Class that represents Flight Entity. Contain next data:
 
 ### Constructor
     // Constructor with arguments
-    FlightEntity(long id, long flightNumber, String departureIATACode, 
+    flight.FlightEntity(long id, long flightNumber, String departureIATACode, 
             String arrivalIATACode, LocalDate departureDate);
 
 Parameters are corresponding to data that is contained in this class.
 
 ---
 
-## FlightParser class
+## flight.FlightParser class
 
 Parser for Flight Entities. 
 
 Parses in next way:
 
-> *Parsing JSONArray as FlightEntities Array* > *Parsing each JSONObject as FlightEntity*
+> *Parsing JSONArray as FlightEntities Array* > *Parsing each JSONObject as flight.FlightEntity*
 
 ### Public methods
 
     // Method to parse Array List of Flight Entity objects from JSON file
     public static void parseFlightEntities(String flightFilePath, 
-                                            ArrayList<FlightEntity> flightEntities)
+                                            ArrayList<flight.FlightEntity> flightEntities)
 
 Throws: IOException, ParseException.
 
 ---
 
-## Cargo class
+## cargo.Cargo class
 
 It is a data class that represents cargo item. Contains next data:
 
@@ -172,7 +172,7 @@ It is a data class that represents cargo item. Contains next data:
 ### Constructor
 
     // Constructor with arguments
-    Cargo(long id, long weight, String weightUnit, long pieces);
+    cargo.Cargo(long id, long weight, String weightUnit, long pieces);
 
 Arguments correspond to data contained in this class.
 
@@ -188,46 +188,46 @@ Arguments correspond to data contained in this class.
     public String toString();
 ---
 
-## CargoEntity class
+## cargo.CargoEntity class
 
-It is a data class for Cargo Entity object. Contains next data:
+It is a data class for cargo.Cargo Entity object. Contains next data:
 
 - Flight ID
 - List of Baggage objects
-- List of Cargo objects
+- List of cargo.Cargo objects
 
-Baggage and Cargo objects are sharing the same Cargo class.
+Baggage and cargo.Cargo objects are sharing the same cargo.Cargo class.
 
 ### Constructor
 
     // Constructor with arguments
-    CargoEntity(long flightId, List<Cargo> baggage, List<Cargo> cargos);
+    cargo.CargoEntity(long flightId, List<cargo.Cargo> baggage, List<cargo.Cargo> cargos);
 
 ### Public methods
 
     // Getters for all fields
     public long getFlightId();
-    public List<Cargo> getBaggage();
-    public List<Cargo> getCargos();
+    public List<cargo.Cargo> getBaggage();
+    public List<cargo.Cargo> getCargos();
 
     // Calculating and getting all baggage pieces
     public long getAllBaggagePieces();
 ---
 
-## CargoParser class
+## cargo.CargoParser class
 
-Parser for Cargo Entities. 
+Parser for cargo.Cargo Entities. 
 
 Parses in next way:
 
 > *Parses JSONArray of all CargoEntities as Array List of CargoEntities* >
-> *Parses JSONObject of Cargo Entity* > *Parses a JSONArray as Lists of Cargo objects* >
-> *Parses JSONObject as Cargo object*
+> *Parses JSONObject of cargo.Cargo Entity* > *Parses a JSONArray as Lists of cargo.Cargo objects* >
+> *Parses JSONObject as cargo.Cargo object*
 
 ### Public methods
-     // Parse Array of Cargo objects
+     // Parse Array of cargo.Cargo objects
      public static void parseCargoEntities(String cargoEntitiesFilePath, 
-                                            ArrayList<CargoEntity> cargoEntities);
+                                            ArrayList<cargo.CargoEntity> cargoEntities);
 
 Throws: IOException, ParseException.
 
@@ -240,7 +240,7 @@ Main class for searching and getting data about Airports and particular flights.
 Contain next data:
 
 - List of Flight Entities
-- List of Cargo Entities
+- List of cargo.Cargo Entities
 
 ### Constructor
     // Constructor with arguments that parses flights and corresponding cargo entities to them
@@ -249,17 +249,17 @@ Contain next data:
 Parameters:
 
 - flightFilePath - path to JSON file that contain information about flights
-- cargoFilePath - path to JSON file that contain information about Cargo Entities
+- cargoFilePath - path to JSON file that contain information about cargo.Cargo Entities
 
 ### Public methods
 
 getFlightInformationById()
 -
 
-Method for getting flight information (Cargo Weight for requested Flight, 
+Method for getting flight information (cargo.Cargo Weight for requested Flight, 
 Baggage Weight for requested Flight, Total Weight for requested Flight)
 
-    public FlightInformation getFlightInformationById(int flightNumber, LocalDate flightDate)
+    public information.FlightInformation getFlightInformationById(int flightNumber, LocalDate flightDate)
 
 Parameters:
 
@@ -268,7 +268,7 @@ Parameters:
 
 Returns:
 
-> FlightInformation class
+> information.FlightInformation class
 
 getAirportInformation()
 -
@@ -277,7 +277,7 @@ Method for getting Airport information (Number of flights departing from this ai
 Number of flights arriving to this airport, Total number (pieces) of baggage arriving to this airport,
 Total number (pieces) of baggage departing from this airport.)
 
-    public AirportInformation getAirportInformation(String IATACode, LocalDate date)
+    public information.AirportInformation getAirportInformation(String IATACode, LocalDate date)
 
 Parameters:
 
@@ -286,11 +286,11 @@ Parameters:
 
 Returns:
 
-> AirportInformation class
+> information.AirportInformation class
 
 ---
 
-##  WeightUtil class
+##  utils.WeightUtil class
 
 Utility class, that helps to convert weight.
 
@@ -304,7 +304,7 @@ Utility class, that helps to convert weight.
 
 ---
 
-## DateUtil class
+## utils.DateUtil class
 
 Utility class, that helps to parse Date form Strings.  
 

@@ -1,3 +1,9 @@
+import cargo.CargoEntity;
+import cargo.CargoParser;
+import flight.FlightEntity;
+import information.AirportInformation;
+import information.FlightInformation;
+import flight.FlightParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -7,36 +13,30 @@ import java.util.ArrayList;
 
 public class InformationSearcherApplication implements InformationSearcher {
     // Array List for all parsed flights
-    private ArrayList<FlightEntity> flightEntities = null;
+    private final ArrayList<FlightEntity> flightEntities;
     // Array List for all parsed cargo
-    private ArrayList<CargoEntity> cargoEntities = null;
+    private final ArrayList<CargoEntity> cargoEntities;
 
     @Override
     public FlightInformation getFlightInformationById(int flightNumber, LocalDate flightDate) {
         // Searching flight by number
         for (FlightEntity flight : flightEntities) {
-            if (flight.getFlightNumber() == flightNumber && flight.getDepartureDate().equals(flightDate)) {
+            if (flight.flightNumber() == flightNumber && flight.departureDate().equals(flightDate)) {
                 // Setting requested data
-                double cargoWeight = 0;
-                double baggageWeight = 0;
+                double cargoWeight;
+                double baggageWeight;
                 double totalWeight;
                 // Getting corresponding cargoEntity
                 CargoEntity cargoEntity = cargoEntities.get(flightEntities.indexOf(flight));
-                // Summing baggage weight
-                for (Cargo baggage : cargoEntity.getBaggage()) {
-                    baggageWeight += baggage.getWeight();
-                }
-                // Summing cargo weight
-                for (Cargo cargo : cargoEntity.getCargos()) {
-                    cargoWeight += cargo.getWeight();
-                }
-                // Summing total weight
+                baggageWeight = cargoEntity.getBaggageWeightSum();
+                cargoWeight = cargoEntity.getCargoWeightSum();
                 totalWeight = cargoWeight + baggageWeight;
                 return new FlightInformation(flightNumber, flightDate, cargoWeight, baggageWeight, totalWeight);
             }
         }
-        // Returning empty FightInformation class if no flight were found
-        return new FlightInformation();
+        // if information about requested flight wasn't found performing "fail-fast"
+        throw new RuntimeException(String.format("""
+                Can't find information about flight with provided data: %s %s""", flightNumber, flightDate));
     }
 
     @Override
@@ -48,12 +48,12 @@ public class InformationSearcherApplication implements InformationSearcher {
         long arrivalBaggagePieces = 0;
         // Finding departure and arrival flights and calculating baggage pieces
         for (FlightEntity flight : flightEntities) {
-            if (flight.getDepartureIATACode().equals(IATACode)) {
+            if (flight.departureIATACode().equals(IATACode)) {
                 departuresNumber++; // Incrementing number of departure flights if such flight was found
                 CargoEntity cargoEntity = cargoEntities.get(flightEntities.indexOf(flight));
                 departureBaggagePieces += cargoEntity.getAllBaggagePieces(); // getting departure baggage pieces
             }
-            if (flight.getArrivalIATACode().equals(IATACode)) {
+            if (flight.arrivalIATACode().equals(IATACode)) {
                 arrivalsNumber++; // Incrementing number of arrivals flights if such flight was found
                 CargoEntity cargoEntity = cargoEntities.get(flightEntities.indexOf(flight));
                 arrivalBaggagePieces += cargoEntity.getAllBaggagePieces(); // getting departure baggage pieces
@@ -63,8 +63,10 @@ public class InformationSearcherApplication implements InformationSearcher {
             return new AirportInformation(IATACode, date, departuresNumber,
                     arrivalsNumber, arrivalBaggagePieces, departureBaggagePieces);
         }
-        // Returning empty airport information class if no flights were found
-        return new AirportInformation();
+        // If information about requested airport wasn't found performing "fail-fast"
+        throw new RuntimeException(String.format("""
+                Can't find information about airport with provided data: %s %s
+                """, IATACode, date));
     }
 
     // Constructor with arguments that parses flights and corresponding cargo entities to them

@@ -1,26 +1,13 @@
+import information.AirportInformation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import utils.DateUtil;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AirportInformationTest {
     private final InformationSearcher searcher = new InformationSearcherApplication("flights.json",
             "Cargos.json");
-
-    @Test
-    @DisplayName("Check empty Airport information")
-    void getAirportInformationByIdEmpty() {
-        assertEquals(searcher.getAirportInformation("AAA",
-                DateUtil.parseDate("2000-11-13T11:13:36-01:00")).toString(), new AirportInformation().toString());
-        assertEquals(searcher.getAirportInformation("BBB",
-                DateUtil.parseDate("2002-11-13T11:13:36-01:00")).toString(), new AirportInformation().toString());
-        assertEquals(searcher.getAirportInformation("CCC",
-                DateUtil.parseDate("2006-11-13T11:13:36-01:00")).toString(), new AirportInformation().toString());
-        assertEquals(searcher.getAirportInformation("DDD",
-                DateUtil.parseDate("2015-11-13T11:13:36-01:00")).toString(), new AirportInformation().toString());
-        assertEquals(searcher.getAirportInformation("EEE",
-                DateUtil.parseDate("3000-11-13T11:13:36-01:00")).toString(), new AirportInformation().toString());
-    }
 
     @Test
     @DisplayName("Check information about airports")

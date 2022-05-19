@@ -1,3 +1,4 @@
+import utils.DateUtil;
 import java.util.Scanner;
 
 public class Main {
@@ -39,6 +40,10 @@ public class Main {
             System.out.println(searcher.getAirportInformation(requestIATACode,
                     DateUtil.parseDate(requestDate)).getInformation());
 
+        }
+        else {
+            printUsage();
+            System.exit(1);
         }
     }
 }

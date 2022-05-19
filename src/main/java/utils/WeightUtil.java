@@ -1,3 +1,5 @@
+package utils;
+
 // Utility class for Weight objects
 public class WeightUtil {
     // Method to convert kilograms to pounds

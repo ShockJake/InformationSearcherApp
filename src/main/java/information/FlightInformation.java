@@ -1,27 +1,13 @@
+package information;
+
 import java.time.LocalDate;
 
-public class FlightInformation {
-    private long flightNumber = 0;
-    private LocalDate date = null;
-    private double cargoWeight = 0;
-    private double baggageWeight = 0;
-    private double totalWeight = 0;
-
-    // Default constructor to build an empty Flight Information class
-    public FlightInformation() {}
-
-    // Constructor with arguments
-    public FlightInformation(long flightNumber, LocalDate date, double cargoWeight, double baggageWeight, double totalWeight) {
-        this.flightNumber = flightNumber;
-        this.date = date;
-        this.cargoWeight = cargoWeight;
-        this.baggageWeight = baggageWeight;
-        this.totalWeight = totalWeight;
-    }
+public record FlightInformation(long flightNumber, LocalDate date, double cargoWeight, double baggageWeight,
+                                double totalWeight) {
 
     @Override
     public String toString() {
-        return "FlightInformation{" +
+        return "information.FlightInformation{" +
                 "flightNumber=" + flightNumber +
                 ", date=" + date +
                 ", cargoWeight=" + cargoWeight +
@@ -42,26 +28,6 @@ public class FlightInformation {
                 flightNumber, date, cargoWeight, baggageWeight, totalWeight);
     }
 
-    public long getFlightNumber() {
-        return flightNumber;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public double getCargoWeight() {
-        return cargoWeight;
-    }
-
-    public double getBaggageWeight() {
-        return baggageWeight;
-    }
-
-    public double getTotalWeight() {
-        return totalWeight;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof FlightInformation flightInformation)) {
@@ -75,5 +41,10 @@ public class FlightInformation {
                 this.cargoWeight == flightInformation.cargoWeight &&
                 this.baggageWeight == flightInformation.baggageWeight &&
                 this.totalWeight == flightInformation.totalWeight;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (flightNumber % (cargoWeight + baggageWeight + totalWeight));
     }
 }

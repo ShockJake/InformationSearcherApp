@@ -1,20 +1,17 @@
+package information;
+
 import java.time.LocalDate;
 
 public class AirportInformation {
     // Input data
-    private String IATACode = null;
-    private LocalDate date = null;
+    private final String IATACode;
+    private final LocalDate date;
     // Requested data
-    private int departureFlights = 0;
-    private int arrivalFlights = 0;
-    private long arrivalBaggagePieces = 0;
-    private long departureBaggagePieces = 0;
+    private final int departureFlights;
+    private final int arrivalFlights;
+    private final long arrivalBaggagePieces;
+    private final long departureBaggagePieces;
 
-    // Default constructor to build an empty Airport Information class
-    public AirportInformation() {
-    }
-
-    // Constructor with arguments
     public AirportInformation(String IATACode, LocalDate date, int departureNumber,
                        int arrivalsNumber, long arrivalBaggagePieces, long departureBaggagePieces) {
         this.IATACode = IATACode;
@@ -27,7 +24,7 @@ public class AirportInformation {
 
     @Override
     public String toString() {
-        return "AirportInformation{" +
+        return "information.AirportInformation{" +
                 "IATACode='" + IATACode + '\'' +
                 ", date=" + date +
                 ", departureFlights=" + departureFlights +
@@ -88,5 +85,11 @@ public class AirportInformation {
                 this.arrivalFlights == airportInformation.arrivalFlights &&
                 this.departureBaggagePieces == airportInformation.departureBaggagePieces &&
                 this.arrivalBaggagePieces == airportInformation.arrivalBaggagePieces;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (IATACode.length() %
+                (departureFlights + arrivalFlights + arrivalBaggagePieces + departureBaggagePieces));
     }
 }

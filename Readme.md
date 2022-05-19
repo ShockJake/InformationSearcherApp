@@ -23,6 +23,8 @@ file and in case of using it you need to add jar file to your project.
 #### Example of use
 
 ```Java
+import utils.DateUtil;
+
 class App {
     public static void main(String[] args) {
         InformationSearcher searcher =

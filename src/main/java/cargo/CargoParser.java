@@ -1,3 +1,5 @@
+package cargo;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class CargoParser {
 
-    // Method to parse Cargo objects
+    // Method to parse cargo.Cargo objects
     private static Cargo parseCargo(JSONObject cargoObj) {
         return new Cargo(
                 (long) cargoObj.get("id"),
@@ -20,7 +22,7 @@ public class CargoParser {
         );
     }
 
-    // Method to parse List of Cargo objects
+    // Method to parse List of cargo.Cargo objects
     private static List<Cargo> parseCargos(JSONArray jsonCargo) {
         ArrayList<Cargo> cargoArray = new ArrayList<>();
         jsonCargo.forEach(c -> {
@@ -30,7 +32,7 @@ public class CargoParser {
         return cargoArray;
     }
 
-    // Parse Cargo Entity object
+    // Parse cargo.Cargo Entity object
     private static CargoEntity parseCargoEntity(JSONObject cargoObj) {
         return new CargoEntity(
                 (long) cargoObj.get("flightId"),
@@ -39,7 +41,7 @@ public class CargoParser {
         );
     }
 
-    // Parse Array of Cargo objects
+    // Parse Array of cargo.Cargo objects
     public static void parseCargoEntities(String cargoEntitiesFilePath, ArrayList<CargoEntity> cargoEntities)
             throws IOException, ParseException {
 

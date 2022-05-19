@@ -1,10 +1,13 @@
-public class Cargo {
-    private long id = 0;
-    private long weight = 0;
-    private String weightUnit = null;
-    private long pieces = 0;
+package cargo;
 
-    // Constructor with arguments
+import utils.WeightUtil;
+
+public class Cargo {
+    private final long id;
+    private final long weight;
+    private final String weightUnit;
+    private final long pieces;
+
     Cargo(long id, long weight, String weightUnit, long pieces) {
         this.id = id;
         this.weight = weight;
@@ -14,7 +17,7 @@ public class Cargo {
 
     @Override
     public String toString() {
-        return "Cargo{" +
+        return "cargo.Cargo{" +
                 "id=" + id +
                 ", weight=" + weight +
                 ", weightUnit='" + weightUnit + '\'' +

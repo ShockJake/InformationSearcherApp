@@ -1,5 +1,7 @@
+import information.FlightInformation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import utils.DateUtil;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,18 +9,6 @@ class FlightInformationTest {
     private final InformationSearcher searcher = new InformationSearcherApplication("flights.json",
             "Cargos.json");
 
-    @Test
-    @DisplayName("Check empty flight information")
-    void getFlightInformationByIdEmpty() {
-        assertEquals(searcher.getFlightInformationById(0,
-                DateUtil.parseDate("2000-11-13T11:13:36-01:00")).toString(), new FlightInformation().toString());
-        assertEquals(searcher.getFlightInformationById(10,
-                DateUtil.parseDate("2005-11-13T11:13:36-01:00")).toString(), new FlightInformation().toString());
-        assertEquals(searcher.getFlightInformationById(20,
-                DateUtil.parseDate("2010-11-13T11:13:36-01:00")).toString(), new FlightInformation().toString());
-        assertEquals(searcher.getFlightInformationById(8130128,
-                DateUtil.parseDate("3000-11-13T11:13:36-01:00")).toString(), new FlightInformation().toString());
-    }
 
     @Test
     @DisplayName("Check information about all flights")

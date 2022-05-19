@@ -1,3 +1,6 @@
+import information.AirportInformation;
+import information.FlightInformation;
+
 import java.time.LocalDate;
 
 // Interface for users
